@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/mediaprodcast/common/genproto/monitor";
+
+package monitor;
+
+message MetricsResponse {
+  string OrgID = 1;
+}
+
+message MetricsQuery {
+  string OrgID = 1;
+}
+
+service MonitorService {
+  rpc GetMetrics(MetricsQuery) returns (MetricsResponse);
+}

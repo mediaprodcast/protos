@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "github.com/mediaprodcast/common/genproto/probe";
+
+package probe;
+
+message Metadata {
+  int32 width = 3;
+  int32 height = 4;
+}
+
+message ProbeRequest {
+  string input = 1;
+}
+
+message ProbeResponse {
+  Metadata metadata = 1;
+}
+
+service ProbeService {
+  rpc GetMetadata(ProbeRequest) returns (ProbeResponse);
+}
