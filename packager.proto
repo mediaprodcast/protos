@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/mediaprodcast/common/genproto/packager";
+
+package packager;
+
+message PackagerRequest {
+  string JobID = 1;
+}
+
+message PackagerResponse {
+  string JobID = 1;
+}
+
+service PackagerService {
+  rpc GeneratePlaylist(PackagerRequest) returns (PackagerResponse);
+}
