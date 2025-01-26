@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/mediaprodcast/common/genproto/probe";
+option go_package = "github.com/mediaprodcast/commons/genproto/probe";
 
 package probe;
 

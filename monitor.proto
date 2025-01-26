@@ -1,15 +1,15 @@
 syntax = "proto3";
 
-option go_package = "github.com/mediaprodcast/common/genproto/monitor";
+option go_package = "github.com/mediaprodcast/commons/genproto/monitor";
 
 package monitor;
 
 message MetricsResponse {
-  string OrgID = 1;
+  string org_id = 1;
 }
 
 message MetricsQuery {
-  string OrgID = 1;
+  string org_id = 1;
 }
 
 service MonitorService {

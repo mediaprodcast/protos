@@ -1,15 +1,15 @@
 syntax = "proto3";
 
-option go_package = "github.com/mediaprodcast/common/genproto/packager";
+option go_package = "github.com/mediaprodcast/commons/genproto/packager";
 
 package packager;
 
 message PackagerRequest {
-  string JobID = 1;
+  string job_id = 1;
 }
 
 message PackagerResponse {
-  string JobID = 1;
+  string job_id = 1;
 }
 
 service PackagerService {

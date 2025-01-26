@@ -5,11 +5,11 @@ option go_package = "github.com/mediaprodcast/common/genproto/transcoder";
 package transcoder;
 
 message TranscoderRequest {
-  string JobID = 1;
+  string job_id = 1;
 }
 
 message TranscoderResponse {
-  string JobID = 1;
+  string job_id = 1;
 }
 
 service TranscoderService {

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option go_package = "github.com/mediaprodcast/commons/genproto/autoscaler";
+
+package autoscaler;
+
+// Scaling action
+enum ScalingAction {
+  SCALE_UP = 0;
+  SCALE_DOWN = 1;
+  NO_ACTION = 2;
+}
+
+// Scaling target
+enum ScalingTarget {
+  TRANSCODER = 0;
+  PACKAGER = 1;
+  STORAGE = 2;
+  PROBE = 3;
+  INGRESS = 4;
+  ORCHESTRATOR = 5;
+  DRM = 6;
+}
+
+// Metric Name
+enum MetricName {
+  CPU_UTILIZATION = 0;
+  MEMORY_UTILIZATION = 1;
+  QUEUE_LENGTH = 2;
+  JOB_PROCESSING_LATENCY = 3;
+  ERROR_RATE = 4;
+}
+
+// Scaling policy
+message ScalingPolicy {
+  MetricName metric_name = 1;
+  double threshold = 2;
+  ScalingAction action = 3;
+  ScalingTarget target = 4;
+}
+
+// Scaling request
+message ScalingRequest {
+  OrganizationId org_id = 1;
+  repeated ScalingPolicy policies = 2;
+}
+
+// Scaling response
+message ScalingResponse {
+  string message = 1;
+}
+
+// Autoscaler Service
+service AutoscalerService {
+  rpc GetScalingRecommendations(Empty) returns (Empty);
+  rpc ApplyScaling(ScalingRequest) returns (ScalingResponse);
+}
+
+// Organization ID
+message OrganizationId {
+  string org_id = 1;
+}
+
+message Empty {}

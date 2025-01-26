@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+option go_package = "github.com/mediaprodcast/commons/genproto/orchestrator";
+
+package orchestrator;
+
+message CreateJobRequest {
+  string org_id = 1;
+  repeated TranscodingProfile transcoding_profiles = 2;
+}
+
+enum JobStatus {
+  JOB_STATUS_UNSPECIFIED = 0;
+  QUEUED = 1;
+  PROCESSING = 2;
+  COMPLETED = 3;
+  FAILED = 4;
+  CANCELLED = 5;
+}
+
+message CreateJobResponse {
+  string job_id = 1;
+  JobStatus status = 2;
+}
+
+message UpdateJobRequest {
+  string job_id = 1;
+  JobStatus status = 2;
+  repeated TranscodingProfile transcoding_profiles = 3;
+}
+
+message UpdateJobResponse {
+  Job job = 1;
+}
+
+message DestroyJobRequest {
+  string job_id = 1;
+}
+
+message DestroyJobResponse {
+  string job_id = 1;
+  bool success = 2;
+}
+
+message TranscodingProfile {
+  int32 bitrate = 1;
+  int32 frame_rate = 2;
+}
+
+message ListJobsRequest {
+  string org_id = 1;
+  int32 page_size = 2;
+  int32 page_token = 3;
+}
+
+message ListJobsResponse {
+  repeated Job jobs = 1;
+  int32 total_count = 2;
+}
+
+message Job {
+  string id = 1;
+  string job_id = 2;
+  JobStatus status = 3;
+}
+
+message Empty {}
+
+message GetJobRequest {
+  string org_id = 1;
+  string job_id = 2;
+}
+
+service OrchestratorService {
+  rpc CreateJob(CreateJobRequest) returns (CreateJobResponse);
+  rpc UpdateJob(UpdateJobRequest) returns (UpdateJobResponse);
+  rpc DestroyJob(DestroyJobRequest) returns (DestroyJobResponse);
+  rpc GetJob(GetJobRequest) returns (Job);
+  rpc CancelJob(GetJobRequest) returns (Empty);
+  rpc ListJobs(ListJobsRequest) returns (ListJobsResponse);
+}
